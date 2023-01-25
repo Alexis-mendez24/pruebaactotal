@@ -80,7 +80,7 @@ class Usuario {
             }
             
         } catch (Exception $e) {
-            throw new Oportunidad_exception("Error en get_all(), usuario.class.php");
+            throw new Usuario_exception("Error en get_all(), usuario.class.php");
         }
 
         return $ret;
@@ -105,7 +105,7 @@ class Usuario {
 
             $raw_info = $db->execute_command($sqli);
         } catch (Exception $e) {
-            throw new Oportunidad_exception("Error en save(), usuario.class.php");
+            throw new Usuario_exception("Error en save(), usuario.class.php");
         }
     }
 
