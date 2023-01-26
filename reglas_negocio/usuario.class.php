@@ -59,53 +59,41 @@ class Usuario {
     }
 
     //Retorna todos los usuarios.
-    public static function get_all($ret) {
-        $ret = array();
+    public static function get_all($pagina = 1) {
+        $cant_por_pagina = 8;
+        $inicio = ($pagina - 1) * $cant_por_pagina;
         try {
             $db = new Db_manager();
             $conn = $db->conn_bd();
 
             $result = mysqli_query($conn, "SELECT * from usuarios");
-            $count = 0;
-            while ($row = mysqli_fetch_array($result)) {
-                $count = $count + 1;
-                $usuario = new Usuario();
-                $usuario->id = $row['id'];
-                $usuario->nombre = $row["nombre"];
-                $usuario->email = $row["email"];
-                $usuario->telefono = $row["telefono"];
-                $usuario->fecha = $row["fecha"];
-
-                array_push($ret, $usuario);
+            $registros = [];
+            while ($r = mysqli_fetch_assoc($result)) {
+                $registros[] = $r;
             }
-            
+
+            $result2 = mysqli_query($conn, "SELECT count(*) as CANTIDAD from usuarios");
+            $array = mysqli_fetch_assoc($result2);
+            $paginas = ceil($array['CANTIDAD'] / $cant_por_pagina);
         } catch (Exception $e) {
-            throw new Oportunidad_exception("Error en get_all(), usuario.class.php");
+            throw new Usuario_exception("Error en get_all(), usuario.class.php");
         }
 
-        return $ret;
+        return [ 'resultados' => $registros, 'paginas' => $paginas, 'actual' => $pagina];
     }
 
     public function save() {
         try {
-
 
             $db = new Db_manager();
 
             $conn = $db->conn_bd();
 
             $sqli = mysqli_query($conn, "INSERT INTO usuarios (nombre,email,telefono)VALUES('$this->nombre','$this->email','$this->telefono')");
-
-//            $sqlCommand = new Db_command("CALL `alta_usuario`(@nombre,@email,@telefono);");
-//            $sqlCommand->assign_string_param("@nombre", $this->nombre);
-//            $sqlCommand->assign_string_param("@email", $this->email);
-//            $sqlCommand->assign_string_param("@telefono",$this->telefono);
-//            $sqlCommand->assign_string_param("@fecha",$this->fecha);
-
-
-            $raw_info = $db->execute_command($sqli);
+        
+            
         } catch (Exception $e) {
-            throw new Oportunidad_exception("Error en save(), usuario.class.php");
+            throw new Usuario_exception("Error en save(), usuario.class.php");
         }
     }
 

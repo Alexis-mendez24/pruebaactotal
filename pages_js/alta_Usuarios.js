@@ -1,11 +1,8 @@
-
 $(document).ready(function () {
-    //mostrartabla();
-    //gvUsuarios_load();
+    Usuarios_load();
 });
 
-function gvUsuarios_load() {
-
+function Usuarios_load() {
     try {
 
         var parametros = {
@@ -14,31 +11,39 @@ function gvUsuarios_load() {
 
         $.ajax({
             data: parametros,
-            url: '../codebehind/cb_Usuarios.class.php',
+            url: 'codebehind/cb_Usuarios.class.php',
             type: 'post',
+            //async: false,
             success: function (data)
+
             {
-//                var filas = data.usuario.length;
-//
-//                for (i = 0; i < filas; i++) { //cuenta la cantidad de registros
-//                    var nuevafila = "<tr><td>" +
-//                            data.usuario[i].nombre + "</td><td>" +
-//                            data.usuario[i].email + "</td><td>" +
-//                            data.usuario[i].telefono + "</td><td>" +
-//                            data.usuario[i].fecha + "</td><td>";
-//
-//
-//                    $("#tabla").append(nuevafila);
-//                }
+                var json_listar;
+                json_listar = $.parseJSON(data);
+                var filas = json_listar.resultados.length;
+
+                for (i = 0; i < filas; i++) {
+
+                    document.getElementById("listado").innerHTML += '<div class="col-sm-6">' +
+                            'Nombre:' + ' ' + json_listar.resultados[i]['nombre'] + '</div>'+ '<div class="col-sm-6">' +
+                            'Email:' + ' ' + json_listar.resultados[i]['email'] + '</div>' + '' + '<div class="col-sm-6">' +
+                            'Telefono:' + ' ' + json_listar.resultados[i]['telefono'] + '</div>' + '' + '<div class="col-sm-6">' +
+                            'Fecha:' + ' ' + json_listar.resultados[i]['fecha'] + '</div>'+'<br>';
+
+                }
+                for (i = 1; i <= json_listar.paginas; i++) {
+                    //var actual = $i == 1 ? " class='actual'" : '';
+                    document.getElementById("paginador").innerHTML += '<li><a data-pagina="i" href="pagina-1.html" actual>' + i + '</a></li>';
+                }
 
             }
         });
 
     } catch (err) {
 
-        Adm_Usuario_exception_handler(err, "Error en gvUsuarios_load");
+        Al_Noticias_exception_handler(err, "Error en gvUsuarios_load");
     }
 }
+
 
 function get_nombre() {
     try {
@@ -85,7 +90,7 @@ function btnGuardarUsuario_Click() {
 
             $.ajax({
                 data: parametros,
-                url: '../codebehind/cb_Usuarios.class.php',
+                url: 'codebehind/cb_Usuarios.class.php',
                 type: 'post',
                 success: function (data)
                 {
@@ -93,6 +98,7 @@ function btnGuardarUsuario_Click() {
                     alert("Alta exitosa");
 
                     clean_formulario();
+                    Usuarios_load();
 
                 }
 
@@ -101,7 +107,7 @@ function btnGuardarUsuario_Click() {
         }
 
     } catch (err) {
-        (err, "Error en btnGuardarUsuario_Click");
+        Al_Noticias_exception_handler(err, "Error en Guardar Usuario");
     }
 
 }
@@ -194,4 +200,8 @@ function clean_telefono() {
     } catch (err) {
         alert(err, "Error en clean_telefono");
     }
+}
+
+function Al_Noticias_exception_handler(exception, message) {
+    alert(message + "; Detalle: " + exception);
 }

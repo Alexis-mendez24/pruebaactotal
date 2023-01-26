@@ -1,0 +1,19 @@
+body{ margin: 0; padding: 0; font-family: Verdana; background: blue; }
+header{ background: #ededed; padding: 10px; display: flex; align-items: center; }
+header h1{ flex: 1; }
+header  input{ width: 300px; border: 1px solid #ccc; padding: 10px 20px; border-radius: 6px; box-sizing: border-box; font: 13px Verdana; outline: none; }
+
+a{ text-decoration: none; }
+main{ width: 80%; margin: auto; padding: 30px; background: white; }
+h3{ margin: 0 0 10px 0; }
+
+#paginador,
+#publicaciones{ margin: 0; padding: 0; list-style: none; }
+#publicaciones li{ padding: 6px 6px 12px; margin-bottom: 6px; }
+#publicaciones li:not( :last-child ){ border-bottom: 1px solid #ccc; }
+
+#paginador{ display: flex; justify-content: center; }
+#paginador li{ margin: 2px; }
+#paginador a{ display: flex; width: 4ch; height: 4ch; background: #dddfea; align-items: center; justify-content: center; font-family: Monospace; font-size: 15px; border-radius: 50%; }
+#paginador a.actual{ background: darkred; color: white; }
+
