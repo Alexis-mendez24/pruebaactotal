@@ -43,9 +43,9 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `email`, `telefono`, `fecha`) VALUES
-(1, 'sas', 'asasa', 69596533, '2023-01-23 16:41:05'),
-(2, 'Alexis', 'sda@gmail.com', 296596532, '2023-01-23 16:45:50'),
-(3, 'Alexis', 'al@gmail.com', 95254335, '2023-01-24 15:15:45');
+(1, 'Tony', 'test@gmail.com', 269596533, '2023-01-23 16:41:05'),
+(2, 'Apolo', 'sda@gmail.com', 296596532, '2023-01-23 16:45:50'),
+(3, 'Alf', 'al@gmail.com', 095254335, '2023-01-24 15:15:45');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
