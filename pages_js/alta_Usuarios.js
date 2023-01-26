@@ -40,7 +40,7 @@ function Usuarios_load() {
 
     } catch (err) {
 
-        Al_Noticias_exception_handler(err, "Error en gvUsuarios_load");
+        Al_Usuarios_exception_handler(err, "Error en Usuarios_load");
     }
 }
 
@@ -107,7 +107,7 @@ function btnGuardarUsuario_Click() {
         }
 
     } catch (err) {
-        Al_Noticias_exception_handler(err, "Error en Guardar Usuario");
+        Al_Usuarios_exception_handler(err, "Error en Guardar Usuario");
     }
 
 }
@@ -202,6 +202,6 @@ function clean_telefono() {
     }
 }
 
-function Al_Noticias_exception_handler(exception, message) {
+function Al_Usuarios_exception_handler(exception, message) {
     alert(message + "; Detalle: " + exception);
 }
